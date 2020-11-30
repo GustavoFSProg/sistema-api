@@ -3,11 +3,14 @@
   "version": "1.0.0",
   "main": "src/index.js",
   "license": "MIT",
-  "scripts": {  
+  "scripts": {
     "dev": "NODE_ENV=development nodemon --exec babel-node src/index.js",
-    "start": "NODE_ENV=production node dist",
+    "start": "NODE_ENV=production babel-node dist",
     "build": "babel src -d dist",
-    "lint": "eslint --ext .js --ignore-path .gitignore ." 
+    "lint": "eslint --ext .js --ignore-path .gitignore ."
+  },
+  "engine": {
+    "node": "12.18.x"
   },
   "dependencies": {
     "babel-cli": "^6.26.0",
