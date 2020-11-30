@@ -34,6 +34,22 @@ async function getAll(req, res) {
   }
 }
 
+async function updateOne(req, res) {
+  try {
+    await productModel.findByIdAndUpdate(req.params.id, {
+      $set: {
+        title: req.body.title,
+        description: req.body.description,
+        price: req.body.price,
+      },
+    })
+
+    return res.status(201).send({ message: 'Product Registered with success!' })
+  } catch (error) {
+    return res.satus(400).send({ Menssagem: 'Tudo cagado!', error })
+  }
+}
+
 async function deleteOne(req, res) {
   try {
     const { id } = req.params
@@ -41,10 +57,10 @@ async function deleteOne(req, res) {
     console.log('entrou')
     await productModel.findByIdAndDelete(id)
 
-    return res.satus(201).send({ Mensagem: 'Tudo apagado!!' })
+    return res.status(201).send({ message: 'Product Deleted with success!' })
   } catch (error) {
     return res.satus(400).send({ Mensagem: 'All cagado!!', error })
   }
 }
 
-export default { getAll, create, deleteOne }
+export default { getAll, create, deleteOne, updateOne }
