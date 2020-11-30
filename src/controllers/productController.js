@@ -34,6 +34,16 @@ async function getAll(req, res) {
   }
 }
 
+async function getById(req, res) {
+  try {
+    const data = await productModel.findByIdAndUpdate(req.params.id)
+
+    return res.status(200).send(data)
+  } catch (error) {
+    return res.status(400).send(error)
+  }
+}
+
 async function updateOne(req, res) {
   try {
     await productModel.findByIdAndUpdate(req.params.id, {
@@ -63,4 +73,4 @@ async function deleteOne(req, res) {
   }
 }
 
-export default { getAll, create, deleteOne, updateOne }
+export default { getAll, create, deleteOne, updateOne, getById }

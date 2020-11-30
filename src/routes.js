@@ -11,5 +11,6 @@ route.get('/', productController.getAll)
 route.delete('/delete/:id', productController.deleteOne)
 route.put('/update/:id', productController.updateOne)
 route.post('/register', upload.single('image'), productController.create)
+route.get('/lista/:id', productController.getById)
 
 export default route
