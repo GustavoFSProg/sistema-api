@@ -1,4 +1,7 @@
 import productModel from '../models/productModel'
+const { promisify } = require('util')
+import fs from 'fs'
+const unlink = promisify(fs.unlink)
 
 async function create(req, res) {
   try {
@@ -64,8 +67,17 @@ async function deleteOne(req, res) {
   try {
     const { id } = req.params
 
+    const imagem = await productModel.findById(id)
+
+    console.log(imagem.image)
+
     console.log('entrou')
     await productModel.findByIdAndDelete(id)
+
+    fs.unlink(`uploads/${imagem.image}`, (err) => {
+      if (err) throw err
+      console.log('uploads/file.txt was deleted')
+    })
 
     return res.status(201).send({ message: 'Product Deleted with success!' })
   } catch (error) {
