@@ -74,10 +74,10 @@ async function deleteOne(req, res) {
     console.log('entrou')
     await productModel.findByIdAndDelete(id)
 
-    fs.unlink(`uploads/${imagem.image}`, (err) => {
-      if (err) throw err
-      console.log('uploads/file.txt was deleted')
-    })
+    // fs.unlink(`uploads/${imagem.image}`, (err) => {
+    //   if (err) throw err
+    //   console.log('uploads/file.txt was deleted')
+    // })
 
     return res.status(201).send({ message: 'Product Deleted with success!' })
   } catch (error) {
