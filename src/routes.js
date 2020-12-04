@@ -3,6 +3,7 @@ import productController from '../src/controllers/productController'
 import usersController from '../src/controllers/usersController'
 import uploadConfig from './config/uploadConfig'
 import multer from 'multer'
+import Authorize from '../src/services/auth'
 
 const route = new Router()
 
@@ -18,7 +19,7 @@ route.post('/user-register', usersController.create)
 route.get('/users', usersController.getAll)
 route.post('/login', usersController.login)
 route.get('/users/:id', usersController.getById)
-route.delete('/users-del/:id', usersController.deleteOne)
-route.put('/users-update/:id', usersController.updateOne)
+route.delete('/users-del/:id', Authorize, usersController.deleteOne)
+route.put('/users-update/:id', Authorize, usersController.updateOne)
 
 export default route
