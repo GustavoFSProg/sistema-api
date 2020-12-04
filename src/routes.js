@@ -16,6 +16,7 @@ route.get('/lista/:id', productController.getById)
 
 route.post('/user-register', usersController.create)
 route.get('/users', usersController.getAll)
+route.post('/login', usersController.login)
 route.get('/users/:id', usersController.getById)
 route.delete('/users-del/:id', usersController.deleteOne)
 route.put('/users-update/:id', usersController.updateOne)

@@ -1,18 +1,47 @@
 import usersModel from '../models/usersModel'
 import md5 from 'md5'
 import dotenv from 'dotenv'
+import { generateToken } from '../services/token'
 
 dotenv.config()
 
+async function login(req, res) {
+  try {
+    const { email, password } = req.body
+
+    const data = await usersModel.findOne({
+      email,
+      password: md5(password, process.env.GLOBAL_SALTKEY),
+    })
+
+    const token = await generateToken(data)
+
+    return res.status(201).send({ data, token })
+  } catch (error) {
+    return res.status(400).send(data, token)
+  }
+}
+
 async function create(req, res) {
   try {
+    const data = {
+      email: req.body.email,
+      password: req.body.password,
+    }
+
     await usersModel.create({
       name: req.body.name,
       email: req.body.email,
       password: md5(req.body.password, process.env.GLOBAL_SALTKEY),
     })
 
-    return res.status(201).send({ msg: 'Usuario cadastrado com sucesso!' })
+    const token = await generateToken(data)
+
+    console.log(token)
+
+    return res
+      .status(201)
+      .send({ msg: 'Usuario cadastrado com sucesso!', token })
   } catch (error) {
     return res.status(400).send({ msg: 'Error, tudo cagado!' })
   }
@@ -64,4 +93,4 @@ async function updateOne(req, res) {
   }
 }
 
-export default { create, getAll, getById, deleteOne, updateOne }
+export default { create, login, getAll, getById, deleteOne, updateOne }
