@@ -1,6 +1,7 @@
 import usersModel from '../models/usersModel'
 import md5 from 'md5'
 import dotenv from 'dotenv'
+import send from '../services/email-service'
 import { generateToken } from '../services/token'
 
 dotenv.config()
@@ -37,6 +38,8 @@ async function create(req, res) {
 
     const token = await generateToken(data)
 
+    send(req.body)
+
     console.log(token)
 
     return res
@@ -71,7 +74,7 @@ async function deleteOne(req, res) {
   try {
     await usersModel.findByIdAndDelete(req.params.id)
 
-    return res.status(201).send({ msg: 'Tudo apagado!!!' })
+    return res.status(201).send({ msg: 'Tudo apagado!!' })
   } catch (error) {
     return res.status(400).send({ msg: 'ERRO, Tudo cagado!!!' })
   }

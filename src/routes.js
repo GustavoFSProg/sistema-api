@@ -19,7 +19,7 @@ route.post('/user-register', usersController.create)
 route.get('/users', usersController.getAll)
 route.post('/login', usersController.login)
 route.get('/users/:id', usersController.getById)
-route.delete('/users-del/:id', Authorize, usersController.deleteOne)
+route.delete('/users-del/:id', usersController.deleteOne)
 route.put('/users-update/:id', Authorize, usersController.updateOne)
 
 export default route

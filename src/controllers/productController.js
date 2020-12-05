@@ -49,15 +49,21 @@ async function getById(req, res) {
 
 async function updateOne(req, res) {
   try {
-    await productModel.findByIdAndUpdate(req.params.id, {
-      $set: {
-        title: req.body.title,
-        description: req.body.description,
-        price: req.body.price,
-      },
-    })
+    if (typeof req.body.price === String) {
+      return console.log('O preço deve ser um numero!')
+    } else {
+      await productModel.findByIdAndUpdate(req.params.id, {
+        $set: {
+          title: req.body.title,
+          description: req.body.description,
+          price: req.body.price,
+        },
+      })
 
-    return res.status(201).send({ message: 'Product Registered with success!' })
+      return res
+        .status(201)
+        .send({ message: 'Product Registered with success!' })
+    }
   } catch (error) {
     return res.satus(400).send({ Menssagem: 'Tudo cagado!', error })
   }
