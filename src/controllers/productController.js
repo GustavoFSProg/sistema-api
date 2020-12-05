@@ -50,7 +50,7 @@ async function getById(req, res) {
 async function updateOne(req, res) {
   try {
     if (typeof req.body.price === String) {
-      return console.log('O preço deve ser um numero!')
+      return alert('O preço deve ser um numero!')
     } else {
       await productModel.findByIdAndUpdate(req.params.id, {
         $set: {
