@@ -15,9 +15,14 @@ async function login(req, res) {
       password: md5(password, process.env.GLOBAL_SALTKEY),
     })
 
-    const token = await generateToken(data)
-
-    return res.status(201).send({ data, token })
+    if (!data) {
+      return res
+        .status(201)
+        .send({ Erro: 'Email or Password are incorrect!!!' })
+    } else {
+      const token = await generateToken(data)
+      return res.status(201).send({ data, token })
+    }
   } catch (error) {
     return res.status(400).send(data, token)
   }
