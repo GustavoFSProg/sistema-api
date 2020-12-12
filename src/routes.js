@@ -10,16 +10,16 @@ const route = new Router()
 const upload = multer(uploadConfig)
 
 route.get('/', productController.getAll)
-route.delete('/delete/:id', productController.deleteOne)
+route.delete('/delete/:id', Authorize, productController.deleteOne)
 route.put('/update/:id', productController.updateOne)
 route.post('/register', upload.single('image'), productController.create)
 route.get('/lista/:id', productController.getById)
 
-route.post('/user-register', usersController.create)
-route.get('/users', usersController.getAll)
+route.post('/user-register', Authorize, usersController.create)
+route.get('/users', Authorize, usersController.getAll)
 route.post('/login', usersController.login)
 route.get('/users/:id', usersController.getById)
-route.delete('/users-del/:id', usersController.deleteOne)
+route.delete('/users-del/:id', Authorize, usersController.deleteOne)
 route.put('/users-update/:id', Authorize, usersController.updateOne)
 
 export default route

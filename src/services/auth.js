@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken'
 
-async function Authorize(req, res) {
+async function Authorize(req, res, next) {
   try {
     const token =
       req.body.token || req.query.token || req.headers['x-access-token']
@@ -26,6 +26,7 @@ async function Authorize(req, res) {
       )
     }
   } catch (error) {
+    console.log(`error:${error}`)
     return res.status(400).send({ error })
   }
 }
