@@ -15,7 +15,7 @@ route.put('/update/:id', productController.updateOne)
 route.post('/register', upload.single('image'), productController.create)
 route.get('/lista/:id', productController.getById)
 
-route.post('/user-register', Authorize, usersController.create)
+route.post('/user-register', usersController.create)
 route.get('/users', Authorize, usersController.getAll)
 route.post('/login', usersController.login)
 // route.get('/users/:id', Authorize, usersController.getById)
